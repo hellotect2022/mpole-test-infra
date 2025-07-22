@@ -1,0 +1,235 @@
+#
+# File automatically generated on Mon Jul 21 13:24:10 2025
+#
+
+general : 
+{
+  rtp_port_range = "10000-10030";
+};
+rtp-sample : 
+{
+  type = "rtp";
+  id = "1";
+  description = "Opus/VP8 live stream coming from external source";
+  metadata = "You can use this metadata section to put any info you want!";
+  audio = "false";
+  video = "true";
+  audioport = "5002";
+  audiopt = "111";
+  #audiocodec = "opus";
+  videoport = "5004";
+  #videopt = "100";
+  videopt = "96";
+  videocodec = "vp8";
+  #secret = "adminpwd";
+};
+multistream-test2 : 
+{
+  type = "rtp";
+  id = "124";
+  description = "Multistream test (1 audio, 2 video)";
+  metadata = "This is an example of a multistream mountpoint: you'll get an audio stream and two video feeds";
+  media = ( 
+    {
+      type = "video";
+      mid = "v1";
+      label = "Video stream #1";
+      port = "5001";
+      pt = "96";
+      codec = "vp8";
+    }, 
+    {
+      type = "video";
+      mid = "v2";
+      label = "Video stream #2";
+      port = "5002";
+      pt = "96";
+      codec = "vp8";
+    } );
+};
+multistream-test : 
+{
+  type = "rtp";
+  id = "123";
+  description = "Multistream test (1 audio, 2 video)";
+  metadata = "This is an example of a multistream mountpoint: you'll get an audio stream and two video feeds";
+  media = ( 
+    {
+      type = "audio";
+      mid = "a";
+      label = "Audio stream";
+      port = "5102";
+      pt = "111";
+      codec = "opus";
+    }, 
+    {
+      type = "video";
+      mid = "v1";
+      label = "Video stream #1";
+      port = "5104";
+      pt = "100";
+      codec = "vp8";
+    }, 
+    {
+      type = "video";
+      mid = "v2";
+      label = "Video stream #2";
+      port = "5106";
+      pt = "100";
+      codec = "vp8";
+    } );
+  secret = "adminpwd";
+};
+file-live-sample : 
+{
+  type = "live";
+  id = "2";
+  description = "Pseudo-live radio broadcast (a-law file source)";
+  metadata = "This is a pseudo-live stream, whose source is actually a static Opus file on the disk: the Streaming plugin goes through the file in real-time, and sends the frames via RTP. It's pseudo-live because it progresses even when there are no subscribers, and all subscribers get the same audio.";
+  filename = "/opt/janus/share/janus/streams/radio.alaw";
+  audio = "true";
+  video = "false";
+  secret = "adminpwd";
+};
+file-ondemand-sample : 
+{
+  type = "ondemand";
+  id = "3";
+  description = "Remembrance, by Lorenzo Miniero (stereo music, Opus)";
+  metadata = "This is an on-demand stream, whose source is actually a static Opus file on the disk: when a subscriber opens it, the Streaming plugin starts from the beginning and goes through the file in real-time, and sends the frames via RTP. Unlike the pseudo-live sample, each subscriber opening it will experience a personal playout.";
+  filename = "/opt/janus/share/janus/streams/remembrance.opus";
+  audio = "true";
+  audiopt = "100";
+  audiortpmap = "opus/48000/2";
+  audiofmtp = "stereo=1";
+  video = "false";
+  secret = "adminpwd";
+};
+rtsp-test : 
+{
+  type = "rtsp";
+  id = "99";
+  description = "RTSP Test";
+  audio = "false";
+  video = "true";
+  url = "rtsp://admin:Thermal1594!@192.168.10.44/Primary";
+  rtsp_user = "admin";
+  rtsp_pwd = "Thermal1594!";
+  rtsp_reconnect_delay = "5";
+  rtsp_session_timeout = "0";
+  rtsp_timeout = "10";
+  rtsp_conn_timeout = "5";
+};
+rtsp-test1 : 
+{
+  type = "rtsp";
+  id = "100";
+  description = "RTSP Test";
+  audio = "false";
+  video = "true";
+  url = "rtsp://admin:1q2w3e4r@192.168.10.7:554/Streaming/Channels/101?transportmode=unicast&profile=Profile_1";
+  rtsp_reconnect_delay = "5";
+  rtsp_session_timeout = "0";
+  rtsp_timeout = "10";
+  rtsp_conn_timeout = "5";
+};
+rtsp-test2 : 
+{
+  type = "rtsp";
+  id = "101";
+  description = "RTSP Test";
+  audio = "false";
+  video = "true";
+  url = "rtsp://service:!Q2w3e4r5t@192.168.10.27/rtsp_tunnel?p=0&line=1&inst=1&vcd=2";
+  rtsp_user = "service";
+  rtsp_pwd = "!Q2w3e4r5t";
+  rtsp_reconnect_delay = "5";
+  rtsp_session_timeout = "0";
+  rtsp_timeout = "10";
+  rtsp_conn_timeout = "5";
+};
+rtsp-test3 : 
+{
+  type = "rtsp";
+  id = "102";
+  description = "RTSP Test";
+  audio = "false";
+  video = "true";
+  url = "rtsp://admin:admin@192.168.10.102:554/Master-0";
+  rtsp_user = "admin";
+  rtsp_pwd = "admin";
+  rtsp_reconnect_delay = "5";
+  rtsp_session_timeout = "0";
+  rtsp_timeout = "10";
+  rtsp_conn_timeout = "5";
+};
+rtsp-test4 : 
+{
+  type = "rtsp";
+  id = "103";
+  description = "RTSP Test";
+  audio = "false";
+  video = "true";
+  url = "rtsp://admin:%21Q2w3e4r@192.168.10.124:554/onvif/media?profile=M1_Profile1";
+  rtsp_user = "admin";
+  rtsp_pwd = "!Q2w3e4r";
+  rtp_transport = "tcp";
+  rtsp_reconnect_delay = "5";
+  rtsp_session_timeout = "0";
+  rtsp_timeout = "10";
+  rtsp_conn_timeout = "5";
+};
+rtsp-test5 : 
+{
+  type = "rtsp";
+  id = "104";
+  description = "RTSP Test";
+  audio = "false";
+  video = "true";
+  url = "rtsp://admin:admin@192.168.10.131:554/ch01/0";
+  rtsp_user = "admin";
+  rtsp_pwd = "admin";
+  rtsp_reconnect_delay = "5";
+  rtsp_session_timeout = "0";
+  rtsp_timeout = "10";
+  rtsp_conn_timeout = "5";
+};
+rtsp-test6 : 
+{
+  type = "rtsp";
+  id = "105";
+  description = "RTSP Test";
+  audio = "false";
+  video = "true";
+  url = "rtsp://192.168.10.214/Master-0%3Fprofile=Master-0";
+  rtsp_user = "admin";
+  rtsp_pwd = "admin";
+  rtsp_reconnect_delay = "5";
+  rtsp_session_timeout = "0";
+  rtsp_timeout = "10";
+  rtsp_conn_timeout = "5";
+};
+dhhan-test : 
+{
+  type = "rtsp";
+  id = "8080";
+  description = "kkkkk test";
+  url = "rtsp://192.168.10.49:554/cam/realmonitor?channel=1&subtype=0&unicast=true&proto=Onvif";
+  rtsp_user = "admin";
+  rtsp_pwd = "1q2w3e4r";
+  video = "true";
+  videocodec = "h264";
+  videofmtp = "packetization-mode=1;profile-level-id=640028;sprop-parameter-sets=Z2QAKKwbGoB4AiflwFuAgICgAAB9AAAdTB0MAF3AABpeF3lxoYALuAADS8LvLhQA,aO44MAA=";
+};
+dhhan-test1 : 
+{
+  type = "rtsp";
+  id = "8081";
+  description = "kkkkk test";
+  url = "rtsp://192.168.10.214/Master-0%3Fprofile=Master-0";
+  rtsp_user = "admin";
+  rtsp_pwd = "admin";
+  video = "true";
+  videocodec = "h264";
+  videofmtp = "packetization-mode=1;profile-level-id=648028;sprop-parameter-sets=J2QAKKwa0A8ARPy4C2QAAAMABAAAAwBlpQAfQADk697hHihFQA==,KO4ESSJA";
+};

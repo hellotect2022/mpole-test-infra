@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  my-java-app:
+    image: openjdk:21-jdk
+    container_name: wearable
+    volumes:
+      - /home/dhhan/infra/app:/opt/app                    # JAR 파일 위치
+      - /home/dhhan/infra/properties:/opt/config              # application.properties 위치
+    working_dir: /opt/app
+    command: >
+      java -jar wearable.jar
+      --spring.config.location=file:/opt/config/wearable.properties
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

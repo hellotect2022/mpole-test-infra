@@ -1,0 +1,3 @@
+#!/bin/bash
+
+podman exec -it mongodb mongosh "mongodb://root:example@localhost:27017/dhhan?authSource=admin"

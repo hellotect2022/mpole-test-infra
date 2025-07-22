@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:11.5.2
+    container_name: mariadb
+    restart: unless-stopped
+      #user: 999:root
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: pass
+
+    volumes:
+      - /home/dhhan/infra/conf/my.cnf:/etc/mysql/my.cnf
+      - /home/dhhan/infra/data/maria_data:/var/lib/mysql

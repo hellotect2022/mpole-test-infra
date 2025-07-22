@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    restart: always
+      #user: "1000:1000"
+    volumes:
+      - /home/dhhan/infra/data/redis-data:/data
+      - /home/dhhan/infra/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /home/dhhan/infra/log/redis:/var/log/redis
+    command: /bin/sh -c "redis-server /usr/local/etc/redis/redis.conf"
+    ports:
+      - "6379:6379"

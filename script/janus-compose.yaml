@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  janus:
+    user: root
+    image: docker.io/dhhan/janus-gateway:latest
+    container_name: janus
+    command: ["/opt/janus/bin/janus","-F","/opt/janus/etc/janus"]
+      #command: ["/opt/janus/bin/janus"]
+    volumes:
+      - /home/dhhan/infra/conf/janus:/opt/janus/etc/janus/
+      - /home/dhhan/infra/log/janus/janus.log:/var/log/janus.log
+    restart: always
+    ports:
+      - 7188:7188  # ws admin api
+      - 8188:8188  # ws rest
+      - 7088:7088  # HTTP admin api
+      - 8088:8088  # HTTP rest api
+      - 10000-10030:10000-10030/udp # ICE 후보 포트
+      - 5001-5200:5001-5200/udp

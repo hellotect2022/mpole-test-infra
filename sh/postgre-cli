@@ -1,0 +1,1 @@
+podman exec -it timescaledb psql -d "postgres://root:example@localhost/twinx"

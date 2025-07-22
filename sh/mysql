@@ -1,0 +1,1 @@
+podman exec -it mariadb mariadb -uroot -p

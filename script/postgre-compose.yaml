@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  timescaledb:
+    image: timescale/timescaledb-ha:pg17
+    container_name: timescaledb
+    restart: unless-stopped
+    user: 0:root
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER : root
+      POSTGRES_PASSWORD : example
+      POSTGRES_DB : twinx
+
+    volumes:
+      #- /home/chainlit/conf/my.cnf:/etc/mysql/my.cnf
+      - /home/dhhan/infra/data/postgres_data:/home/postgres/pgdata/data
+      #- /home/chainlit/log/maria:/data/log
+      #command: ["--config","/etc/mongod.conf"]
