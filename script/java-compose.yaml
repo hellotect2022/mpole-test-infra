@@ -3,14 +3,29 @@ version: '3.8'
 services:
   my-java-app:
     image: openjdk:21-jdk
-    container_name: wearable
+    container_name: javaApp
     volumes:
       - /home/dhhan/infra/app:/opt/app                    # JAR 파일 위치
-      - /home/dhhan/infra/properties:/opt/config              # application.properties 위치
+        #- /home/dhhan/infra/properties:/opt/config              # application.properties 위치
     working_dir: /opt/app
     command: >
-      java -jar wearable.jar
-      --spring.config.location=file:/opt/config/wearable.properties
+      java -jar app.jar
+      #--spring.config.location=file:/opt/config/wearable.properties
     ports:
-      - "8080:8080"
+      #- "8088:8088" 
+      - "8080" #내부통신용  
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    container_name: nginxProxy
+    ports:
+      - "8080:80"   # 외부 접속은 8080, 내부는 80
+    volumes:
+      - /home/dhhan/infra/conf/nginx.conf:/etc/nginx/conf.d/default.conf
+      - /home/dhhan/infra/app/client:/usr/share/nginx/html
+
+        #- /home/dhhan/infra/nginx/logs:/var/log/nginx       # 로그 저장
+    depends_on:
+      - my-java-app
     restart: unless-stopped

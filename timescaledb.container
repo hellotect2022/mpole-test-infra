@@ -1,0 +1,31 @@
+[Unit]
+Description=TimescaleDB Service (Managed by Quadlet)
+
+[Container]
+# 작성하신 YAML의 설정을 그대로 옮깁니다.
+Image=timescale/timescaledb-ha:pg17
+ContainerName=timescaledb
+User=0:root
+PublishPort=5432:5432
+
+# 환경 변수
+Environment=POSTGRES_USER=root POSTGRES_PASSWORD=example POSTGRES_DB=twinx
+
+# 볼륨 설정 (기존 데이터를 그대로 연결하므로 데이터 유실 걱정 없습니다)
+Volume=/home/dataserver/twinxplatform/volume/postgres:/home/postgres/pgdata/data:Z
+
+# 로그 설정 (질문하신 로그 제한 추가)
+LogDriver=json-file
+# LogOpt 키가 에러 난다면 아래처럼 'LogOption'으로 시도하거나 직접 인자를 넘깁니다.
+Annotation=run.oci.keep_original_groups=true
+# 만약 LogOpt가 계속 에러나면 Podman 버전에 따라 아래처럼 써야 할 수도 있습니다:
+PodmanArgs=--log-opt=max-size=10m --log-opt=max-file=5
+
+[Service]
+# 자동 재시작 설정
+Restart=always
+
+[Install]
+# 시스템 시작 시 자동 실행
+WantedBy=default.target
+

@@ -1,1 +1,2 @@
-podman exec -it timescaledb psql -d "postgres://root:example@localhost/twinx"
+#podman exec -it timescaledb psql -d "postgres://root:example@localhost/twinx"
+podman exec -it timescaledb psql -d "postgres://root:example@localhost/test_db"

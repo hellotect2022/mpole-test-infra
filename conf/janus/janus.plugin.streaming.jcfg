@@ -1,5 +1,5 @@
 #
-# File automatically generated on Mon Jul 21 13:24:10 2025
+# File automatically generated on Mon Oct 13 14:47:04 2025
 #
 
 general : 
@@ -16,12 +16,9 @@ rtp-sample :
   video = "true";
   audioport = "5002";
   audiopt = "111";
-  #audiocodec = "opus";
   videoport = "5004";
-  #videopt = "100";
   videopt = "96";
   videocodec = "vp8";
-  #secret = "adminpwd";
 };
 multistream-test2 : 
 {
@@ -204,6 +201,21 @@ rtsp-test6 :
   url = "rtsp://192.168.10.214/Master-0%3Fprofile=Master-0";
   rtsp_user = "admin";
   rtsp_pwd = "admin";
+  rtsp_reconnect_delay = "5";
+  rtsp_session_timeout = "0";
+  rtsp_timeout = "10";
+  rtsp_conn_timeout = "5";
+};
+rtsp-test7 : 
+{
+  type = "rtsp";
+  id = "106";
+  description = "RTSP Test";
+  audio = "false";
+  video = "true";
+  url = "rtsp://admin:!Q2w3e4r5t@192.168.10.65:554/Streaming/Channels/101?transportmode=unicast&profile=Profile_1";
+  rtsp_user = "admin";
+  rtsp_pwd = "!Q2w3e4r5t";
   rtsp_reconnect_delay = "5";
   rtsp_session_timeout = "0";
   rtsp_timeout = "10";

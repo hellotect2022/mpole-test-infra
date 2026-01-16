@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+  kafka:
+    image: bitnami/kafka:4.0.0
+    container_name: kafka
+    hostname: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      - BITNAMI_DEBUG=true
+
+      # KRaft 모드 설정
+      - KAFKA_ENABLE_KRAFT=yes
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+
+      # 리스너 설정
+      - KAFKA_CFG_LISTENERS=EXTERNAL://:9092,CONTROLLER://kafka:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=EXTERNAL://192.168.5.216:9092
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=EXTERNAL
+      
+      # 데이터 보존
+      - KAFKA_CFG_LOG_DIRS=/bitnami/kafka/data/kraft-combined-logs
+      - KAFKA_KRAFT_CLUSTER_ID=kr4ft_cluster_id
+      - KAFKA_KRAFT_STORAGE_DIRS=/bitnami/kafka/data/kraft-combined-logs
+      - KAFKA_SKIP_KRAFT_STORAGE_FORMAT=false
+      #- KAFKA_NODE_ID=1
+      #- KAFKA_PROCESS_ROLES=broker,controller
+      #- KAFKA_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+
+      # 리스너 설정
+      #- KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      #- KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.5.216:9092 #외부클라이언트에게 자신을 알려주는 주소
+        #- KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+        #- KAFKA_INTER_BROKER_LISTENER_NAME=EXTERNAL
+        #- KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+
+      # 로그 저장 경로
+      #- KAFKA_LOG_DIRS=/var/lib/kafka/data/logs
+
+    volumes:
+      - /home/dhhan/infra/data/kafka-data:/bitnami/kafka:Z # 호스트에 데이터 영구 저장
+        #- /home/dhhan/infra/data/kafka-data:/var/lib/kafka/data # 호스트에 데이터 영구 저장
+        #- /home/dhhan/infra/log/kafka:/var/lib/kafka/data/logs

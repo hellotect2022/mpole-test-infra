@@ -3,7 +3,7 @@ version: '3.8'
 services:
   redis:
     image: redis:7.2-alpine
-    container_name: redis
+    container_name: redis-new2
     restart: always
       #user: "1000:1000"
     volumes:
@@ -12,4 +12,4 @@ services:
       - /home/dhhan/infra/log/redis:/var/log/redis
     command: /bin/sh -c "redis-server /usr/local/etc/redis/redis.conf"
     ports:
-      - "6379:6379"
+      - "26379:6379"

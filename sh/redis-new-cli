@@ -1,3 +1,3 @@
 #!/bin/bash
 #podman exec -it redis redis-cli -a 1q2w3e
-podman exec -it redis redis-cli -a 1q2w3e
+podman exec -it redis-new redis-cli -a 1q2w3e
